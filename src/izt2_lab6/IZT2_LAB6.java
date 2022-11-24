@@ -129,7 +129,7 @@ public class IZT2_LAB6 extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(20, 180, 110, 23);
+        jButton1.setBounds(20, 180, 110, 22);
 
         jButton2.setText("XLSX");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -138,7 +138,7 @@ public class IZT2_LAB6 extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton2);
-        jButton2.setBounds(160, 180, 110, 23);
+        jButton2.setBounds(160, 180, 110, 22);
 
         jLabel3.setText("Цена");
         getContentPane().add(jLabel3);
@@ -173,13 +173,13 @@ public class IZT2_LAB6 extends javax.swing.JFrame {
     }
 
     // Модификация данных в XLSX-файле
-    public static void modifyXLSXFile(String xlsxFileName) throws IOException {
+    public static void modifyXLSXFile(String xlsxFileName, String FIO, String Cost, String product, String comment) throws IOException {
         XSSFWorkbook wb = new XSSFWorkbook(new FileInputStream(xlsxFileName));
         XSSFSheet sheet = wb.getSheetAt(0);
-        sheet.getRow(3).getCell(3).setCellValue("Test");
-        sheet.getRow(5).getCell(3).setCellValue("500.000");
-        sheet.getRow(7).getCell(3).setCellValue("Notebook");
-        sheet.getRow(9).getCell(3).setCellValue("Good notebook");
+        sheet.getRow(3).getCell(3).setCellValue(FIO);
+        sheet.getRow(5).getCell(3).setCellValue(Cost);
+        sheet.getRow(7).getCell(3).setCellValue(product);
+        sheet.getRow(9).getCell(3).setCellValue(comment);
 
         FileOutputStream fos = new FileOutputStream(xlsxFileName);
         wb.write(fos);
@@ -217,8 +217,9 @@ public class IZT2_LAB6 extends javax.swing.JFrame {
             String xlsxFileName = new File(".").getAbsoluteFile().getParentFile().getAbsolutePath()
                     + System.getProperty("file.separator") + "test.xlsx";
 //            writeXLSXFile(xlsxFileName);
-            modifyXLSXFile(xlsxFileName);
+            modifyXLSXFile(xlsxFileName, jTextField1.getText(), jTextField2.getText(), jTextField3.getText(),jTextField4.getText());
             readXLSXFile(xlsxFileName);
+            Desktop.getDesktop().open(new File("Test.xlsx"));
         } catch (Exception e) {
             e.printStackTrace();
         }
